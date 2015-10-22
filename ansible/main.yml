@@ -1,0 +1,15 @@
+---
+- hosts: target
+  user: thetrav
+  sudo: yes
+  tasks: 
+  - name: ensure LVM is installed
+    apt:
+        name: lvm2
+        state: present
+  - name: create physical volumes
+    pvol:
+      device: "{{item}}"
+    with_items:
+    - /dev/sdb1
+    - /dev/sdb2
